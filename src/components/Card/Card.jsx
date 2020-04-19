@@ -18,8 +18,8 @@ const UserCard = () => {
         <CardContent classe={{ root: 'User-content' }}>
           <p className="User-content__name">Subina Tamang</p>
           <p className="User-content__desc">
-            I am beautiful and I am sexy .I wont let any douche touch me unless
-            he pays a great amount of money.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
+            aspernatur fugit placeat nam natus iure.
           </p>
           <p className="User-content__category">Web developer</p>
         </CardContent>
