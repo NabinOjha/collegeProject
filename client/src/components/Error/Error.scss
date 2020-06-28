@@ -1,0 +1,33 @@
+.error {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  min-height: 90vh;
+
+  font-size: 1.8rem;
+
+  &__message {
+    text-align: center;
+    color: #006dcb;
+  }
+  &__code {
+    text-align: center;
+    color: red;
+  }
+  &__home {
+    outline: none;
+    border: none;
+    padding: 1rem 3rem;
+    background-color: #0088fe;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0 auto;
+    margin-top: 2rem;
+    display: block;
+    width: 100%;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

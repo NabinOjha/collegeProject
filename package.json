@@ -1,47 +1,32 @@
 {
-  "name": "keyboard",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.9.3",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.46",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "bootstrap": "^4.4.1",
-    "classnames": "^2.2.6",
-    "node-sass": "^4.13.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-icons": "^3.9.0",
-    "react-ionicons": "^3.1.4",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^2.0.0",
-    "react-sizeme": "^2.6.12",
-    "react-slick": "^0.25.2",
-    "redux": "^4.0.5"
-  },
+  "name": "jobapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start:client": "cd client & npm start",
+    "start:server": "nodemon app.js",
+    "start": "concurrently npm:start:*"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "anyfileparser": "^1.1.1",
+    "asposewordscloud": "^20.5.0",
+    "bcrypt": "^4.0.1",
+    "browser-image-compression": "^1.0.12",
+    "concurrently": "^5.2.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.16",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.8"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "supervisor": "^0.12.0"
   }
 }

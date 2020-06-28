@@ -1,0 +1,46 @@
+.userDetails {
+  padding: 5rem;
+  background-color: #e7f7ff;
+  min-height: 88vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &-img-wrapper {
+    height: 70vh;
+    width: 33rem;
+
+    &__img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  &-content {
+    background-color: rgb(219, 211, 211);
+    width: 33rem;
+    color: #000;
+    display: grid;
+    text-transform: uppercase;
+
+    & > * {
+      padding: 1rem 0;
+      padding-left: 1rem;
+    }
+    &__download {
+      outline: none;
+      border: none;
+
+      width: 100%;
+      background-color: #0088fe;
+      cursor: pointer;
+      color: #fff;
+      justify-self: flex-end;
+      transition: all 0.2s ease-in;
+      &:hover {
+        background-color: lighten($color: #0087fed5, $amount: 0.8);
+        color: #000;
+      }
+    }
+  }
+}
