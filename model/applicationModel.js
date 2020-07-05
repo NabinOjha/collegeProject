@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const Job = require('./jobModel');
 const User = require('./userModel');
-const scoreBasedOnBehaviour = require('./../utils/scoreBasedOnBehaviour');
-const Email = require('./../utils/sendMail');
+const scoreBasedOnBehaviour = require('../utils/scoreBasedOnBehaviour');
+const Email = require('../utils/sendMail');
 const Schema = mongoose.Schema;
-const parseResume = require('./../utils/parseResume');
-const AppError = require('./../utils/catchAsync');
+const parseResume = require('../utils/parseResume');
+const AppError = require('../utils/catchAsync');
 
 const jobApplicationSchema = new Schema(
   {
