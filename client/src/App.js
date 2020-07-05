@@ -31,7 +31,6 @@ function App({ getCurrentUserAndStatus, loading }) {
         <Switch>
           <Route path="/" exact={true} component={HomePage} />
           <PrivateRoute path="/dashboard" exact={true} component={DashBoard} />
-
           <Route path="/candidates" exact={true} component={CandidatePage} />
           <Route path="/employers" exact={true} component={EmployerPage} />
           <Route exact path="/users/:id" component={userDetails} />

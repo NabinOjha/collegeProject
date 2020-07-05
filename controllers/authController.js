@@ -43,6 +43,7 @@ exports.register = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
+
   const user = await User.findOne({ email });
   if (!user)
     return next(new AppError('User with this email does not exist!', 400));
