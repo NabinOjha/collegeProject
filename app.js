@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+require('./model/applicationModel');
 
 const userRoutes = require('./routes/userRoutes');
 const jobsRoutes = require('./routes/jobsRoutes');
