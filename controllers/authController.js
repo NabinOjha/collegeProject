@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('./../model/userModel');
 const Jobs = require('./../model/jobModel');
-const upload = require('./../utils/uploadFiles');
+const upload = require('./../utils/uploadFIles');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/AppError');
 
