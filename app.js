@@ -15,7 +15,7 @@ const globalErrorHandler = require('./controllers/errorContoller');
 // read environment variables from .env file
 dotenv.config({ path: './config.env' });
 
-//connect to the datebase
+//connect to the datebas
 require('./db');
 
 //run the express app to set up server
