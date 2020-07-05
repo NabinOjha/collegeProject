@@ -1,6 +1,6 @@
-const JobApplication = require('./../model/jobApplicationModel');
 const Job = require('./../model/jobModel');
 const User = require('./../model/userModel');
+const JobApplication = require('./../model/jobApplicationModel.js');
 
 const AppError = require('./../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
