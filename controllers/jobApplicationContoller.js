@@ -4,6 +4,7 @@ const JobApplication = require('./../model/JobApplicationModel');
 
 const AppError = require('./../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
+// console.log('Hello')
 
 exports.setUserIdsAndCheckUserAlreadyApplied = catchAsync(
   async (req, res, next) => {
