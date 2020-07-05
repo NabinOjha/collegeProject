@@ -1,4 +1,4 @@
-const JobApplication = require('./../model/JobApplicationModel');
+const JobApplication = require('./../model/jobApplicationModel');
 const Job = require('./../model/jobModel');
 const User = require('./../model/userModel');
 
@@ -15,7 +15,6 @@ exports.setUserIdsAndCheckUserAlreadyApplied = catchAsync(
 
     const dataObj = { jobId, employer, employee };
     req.dataObj = dataObj;
-    console.log(req.dataObj);
 
     // check if the loggedIn employee has already applied for the job
     if (job.appliedBy.includes(employee))
