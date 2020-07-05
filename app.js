@@ -35,7 +35,9 @@ app.use(
 );
 
 //request logger
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 //json parser
 app.use(express.json());
