@@ -1,6 +1,6 @@
 const Job = require('./../model/jobModel');
 const User = require('./../model/userModel');
-const JobApplication = require(`${process.cwd()}/model/jobApplicationMode.js`);
+const JobApplication = require('../model/applicationModel');
 
 const AppError = require('./../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
