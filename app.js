@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 // const morgan = require('morgan');
+const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
@@ -56,6 +57,13 @@ app.use('/api/categories', categoriesRoutes);
 
 //global error handler
 app.use(globalErrorHandler);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  });
+}
 
 //Run the api on PORT
 app.listen(PORT, () => {
