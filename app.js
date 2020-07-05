@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
@@ -34,10 +34,10 @@ app.use(
   })
 );
 
-//request logger
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+// //request logger
+// if (process.env.NODE_ENV === 'development') {
+//   app.use(morgan('dev'));
+// }
 
 //json parser
 app.use(express.json());
