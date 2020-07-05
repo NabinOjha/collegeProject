@@ -10,14 +10,14 @@ const jobApplicationRoute = require('./routes/jobApplicationRoute');
 const categoriesRoutes = require('./routes/categoriesRoutes');
 const globalErrorHandler = require('./controllers/errorContoller');
 
+// read environment variables from .env file
+dotenv.config({ path: './config.env' });
+
 //connect to the datebase
 require('./db');
 
 //run the express app to set up server
 const app = express();
-
-// read environment variables from .env file
-dotenv.config({ path: './config.env' });
 
 const PORT = process.env.PORT || 9000;
 
@@ -33,11 +33,6 @@ app.use(
     credentials: true,
   })
 );
-
-// //request logger
-// if (process.env.NODE_ENV === 'development') {
-//   app.use(morgan('dev'));
-// }
 
 //json parser
 app.use(express.json());

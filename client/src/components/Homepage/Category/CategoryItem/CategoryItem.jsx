@@ -5,6 +5,7 @@ import history from './../../../../history';
 import { REACT_APP_STATIC_IMAGE_PATH } from '../../../../static';
 
 const CategoryItem = ({ data }) => {
+  console.log(REACT_APP_STATIC_IMAGE_PATH);
   const currentIcon = `${REACT_APP_STATIC_IMAGE_PATH}/${data.icon}`;
 
   const handleClick = () => {
