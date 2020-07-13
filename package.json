@@ -6,9 +6,7 @@
   "scripts": {
     "start:client": "cd client & npm start",
     "start:server": "nodemon app.js",
-    "dev": "concurrently npm:start:*",
-    "start": "node app.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "start": "concurrently npm:start:*"
   },
   "author": "",
   "license": "ISC",

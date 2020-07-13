@@ -212,7 +212,7 @@ exports.getRatingsDataOfJobsForEachUser = catchAsync(async (req, res, next) => {
 //user based collabrative filtering using KNN algorithm
 exports.getRecommededJobs = catchAsync(async (req, res, next) => {
   let reviews = req.reviews;
-  console.log(reviews);
+
   if (!reviews) {
     return next();
   }

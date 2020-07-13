@@ -85,7 +85,7 @@ const cosineSimilarityFn = (user, userResume, job) => {
   const normalizedIdf = {};
   //normalized idfscores
   for (let [key, value] of Object.entries(idfObj)) {
-    normalizedIdf[key] = (documentNumber / value).toFixed(8);
+    normalizedIdf[key] = Math.log(documentNumber / value).toFixed(8);
   }
 
   //tf-idf

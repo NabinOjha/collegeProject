@@ -10,7 +10,6 @@ const userRoutes = require('./routes/userRoutes');
 const jobsRoutes = require('./routes/jobsRoutes');
 const jobApplicationRoute = require('./routes/jobApplicationRoute');
 const categoriesRoutes = require('./routes/categoriesRoutes');
-const globalErrorHandler = require('./controllers/errorContoller');
 
 // read environment variables from .env file
 dotenv.config({ path: './config.env' });
