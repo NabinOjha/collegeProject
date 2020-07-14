@@ -10,11 +10,11 @@
     -webkit-text-fill-color: transparent;
   }
   &-list {
-    display: grid;
-    grid-gap: 2rem;
+    text-align: center;
     padding: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
   &-empty-list {
     text-align: center;

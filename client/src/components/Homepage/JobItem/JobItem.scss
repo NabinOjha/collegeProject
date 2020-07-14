@@ -2,6 +2,7 @@
   padding: 1rem 1rem;
   display: grid;
   grid-template-columns: repeat(36, 1fr);
+  justify-content: center;
   align-items: center;
   border-bottom: 1px solid #f4f5f7;
   cursor: pointer;
