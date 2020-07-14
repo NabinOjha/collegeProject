@@ -4,12 +4,12 @@ const dotenv = require('dotenv');
 const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-require('./model/applicationModel');
 
 const userRoutes = require('./routes/userRoutes');
 const jobsRoutes = require('./routes/jobsRoutes');
 const jobApplicationRoute = require('./routes/jobApplicationRoute');
 const categoriesRoutes = require('./routes/categoriesRoutes');
+const globalErrorHandler = require('./controllers/errorContoller');
 
 // read environment variables from .env file
 dotenv.config({ path: './config.env' });
@@ -58,12 +58,12 @@ app.use('/api/categories', categoriesRoutes);
 //global error handler
 app.use(globalErrorHandler);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'));
-  });
-}
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, 'client/build')));
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname + '/client/build/index.html'));
+//   });
+// }
 
 //Run the api on PORT
 app.listen(PORT, () => {
