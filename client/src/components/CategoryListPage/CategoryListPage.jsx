@@ -5,6 +5,7 @@ import './CategoryListPage.scss';
 import { getJobsByCategory } from './../../actions/actions';
 import JobItem from '../Homepage/JobItem/JobItem';
 import Spinner from '../Spinner/Spinner';
+import jobContext from '../../context/jobContext';
 
 const CategoryListPage = ({ match, getJobsByCategory, category, loading }) => {
   useEffect(() => {
@@ -14,7 +15,11 @@ const CategoryListPage = ({ match, getJobsByCategory, category, loading }) => {
   const renderJobs = () => {
     if (category && category.jobs && category.jobs.length > 0) {
       return category.jobs.map((job, index) => {
-        return <JobItem key={index} item={job} />;
+        return (
+          <jobContext.Provider value="adminDashboard">
+            <JobItem key={index} item={job} />
+          </jobContext.Provider>
+        );
       });
     } else {
       return 'No Jobs Available in this category';
@@ -41,10 +46,10 @@ const CategoryListPage = ({ match, getJobsByCategory, category, loading }) => {
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     category: state.job.activeCategory,
-    loading: state.loader.loading
+    loading: state.loader.loading,
   };
 };
 

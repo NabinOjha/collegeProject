@@ -14,14 +14,14 @@ import {
   editPassword,
   editJob,
   getJobCategories,
-  getAdmin
+  getAdmin,
 } from './../../actions/actions';
 
-const Field = props => {
+const Field = (props) => {
   const { label, name, type, id, required } = props;
   const [error, setError] = useState(null);
 
-  const handleValue = e => {
+  const handleValue = (e) => {
     const deadline = new Date(e.target.value).getTime();
     const now = Date.now();
 
@@ -56,7 +56,7 @@ const Field = props => {
   );
 };
 
-const SelectOption = props => {
+const SelectOption = (props) => {
   return (
     <div className="popover-form-control">
       <label htmlFor={props.name} className="popover-form-control__label">
@@ -98,16 +98,16 @@ class Form extends React.Component {
     this.props.getAdmin();
   }
 
-  compressImage = async image => {
+  compressImage = async (image) => {
     const compressedImage = await compress(image, {
       quality: image.size > 5000000 ? 0.6 : 0.8,
       type: 'image/jpeg',
       width: 500,
       height: 500,
-      scale: 0.5
+      scale: 0.5,
     });
     const compressedFile = new File([compressedImage], `${image.name}`, {
-      type: compressedImage.type
+      type: compressedImage.type,
     });
 
     return compressedFile;
@@ -299,7 +299,7 @@ class Form extends React.Component {
     );
   };
 
-  createJobForm = props => {
+  createJobForm = (props) => {
     return (
       <React.Fragment>
         <Field
@@ -326,7 +326,7 @@ class Form extends React.Component {
         <SelectOption
           label="Type"
           name="type"
-          options={['Full Time', 'Part Time', 'Internship']}
+          options={['Select Type', 'Full Time', 'Part Time', 'Internship']}
           handleChange={this.handleChange}
           required={props === 'edit' ? '' : 'required'}
         />
@@ -335,7 +335,7 @@ class Form extends React.Component {
           name="category"
           options={
             this.props.categories
-              ? this.props.categories.map(category => category.name)
+              ? this.props.categories.map((category) => category.name)
               : ['select catgory']
           }
           handleChange={this.handleChange}
@@ -511,16 +511,16 @@ class Form extends React.Component {
     }
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
       ...this.state,
       [event.target.name]: event.target.files
         ? event.target.files[0]
-        : event.target.value
+        : event.target.value,
     });
   };
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
     let data = {};
     if (this.state.image) {
@@ -686,7 +686,7 @@ const mapStateToProps = (state, ownProps) => {
     user: state.user.currentUser,
     categories: state.job.category,
     admin: state.user.admin,
-    loading: state.loader.loading
+    loading: state.loader.loading,
   };
 };
 
@@ -699,5 +699,5 @@ export default connect(mapStateToProps, {
   editPassword,
   editJob,
   getJobCategories,
-  getAdmin
+  getAdmin,
 })(Form);
