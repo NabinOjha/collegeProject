@@ -48,7 +48,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 exports.getEmployers = catchAsync(async (req, res, next) => {
   const employers = await User.find({ role: 'employer' });
   if (!employers) return next(new AppError('Employers not found!', 404));
-  res.status(200).json(employers);
+  res.status(200).json({ employers, isemployersExists: true });
 });
 
 exports.downloadResume = catchAsync(async (req, res, next) => {

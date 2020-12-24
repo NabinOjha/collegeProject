@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const app = require('../app');
 const User = require('../model/userModel');
 
-const userRegisterData = {
+const userAdminData = {
   email: 'itsmeacs01@gmail.com',
   userName: 'Aashish Pokhrel',
   password: 'testtesttest',
@@ -12,20 +12,29 @@ const userRegisterData = {
   image: '../public/img/1500x500.jpeg-1608790415025.jpeg',
 };
 
+const userEmployerData = {
+  email: 'itsmeacs02@gmail.com',
+  userName: 'Aashish Pokhrel',
+  password: 'testtesttest',
+  confirmPassword: 'testtesttest',
+  role: 'employer',
+  image: '../public/img/1500x500.jpeg-1608790415025.jpeg',
+};
+
 const userLoginData = {
   email: 'itsmeacs01@gmail.com',
   password: 'testtesttest',
 };
 
-describe('Signup', () => {
+describe('Signup as Admin', () => {
   beforeEach(async () => {
     await User.deleteMany({});
   });
 
-  it('Should Signup Successfully', () => {
+  it('Should Signup Successfully as Admin', () => {
     return request(app)
       .post('/api/users/register')
-      .send(userRegisterData)
+      .send(userAdminData)
       .expect(200)
       .then((res) => {
         const body = res.body;
@@ -50,7 +59,7 @@ describe('Login', () => {
   it('Should get the current user Successfully', () => {
     return request(app)
       .get('/api/users/loggedIn')
-      .set({authorization: `${this.token}`})
+      .set({ authorization: `${this.token}` })
       .expect(200)
       .then((res) => {
         const body = res.body;
@@ -79,6 +88,31 @@ describe('Logout', () => {
       .then((res) => {
         const body = res.body;
         expect(body.islogOut).equal(true);
+      });
+  });
+});
+
+describe('Signup as Employer', () => {
+  it('Should Signup Successfully as Employer', () => {
+    return request(app)
+      .post('/api/users/register')
+      .send(userEmployerData)
+      .expect(200)
+      .then((res) => {
+        const body = res.body;
+        expect(body.message).equal('success');
+      });
+  });
+});
+
+describe('Get Employer', () => {
+  it('Should get Employer Successfully', () => {
+    return request(app)
+      .get('/api/users/employers')
+      .expect(200)
+      .then((res) => {
+        const body = res.body;
+        expect(body.isemployersExists).equal(true);
       });
   });
 });
