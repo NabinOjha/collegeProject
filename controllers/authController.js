@@ -61,6 +61,7 @@ exports.login = catchAsync(async (req, res, next) => {
     res.status(200).json({
       token,
       user,
+      isLoggedIn: true,
     });
   } else {
     return next(new AppError('Wrong Password.Please try again!', 400));

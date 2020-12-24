@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  'mongodb://localhost:27017' || process.env.MONGODB_URI,
+  process.env.NODE_ENV === 'development'
+  ? process.env.MONGODB_DEV_TEST_URI
+  : 'mongodb://localhost:27017' || process.env.MONGODB_URI,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
