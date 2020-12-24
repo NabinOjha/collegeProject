@@ -104,3 +104,15 @@ describe('Signup as Employer', () => {
       });
   });
 });
+
+describe('Get Employer', () => {
+  it('Should get Employer Successfully', () => {
+    return request(app)
+      .get('/api/users/employers')
+      .expect(200)
+      .then((res) => {
+        const body = res.body;
+        expect(body.isemployersExists).equal(true);
+      });
+  });
+});
