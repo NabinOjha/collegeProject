@@ -212,9 +212,11 @@ exports.getAdmin = catchAsync(async (req, res, next) => {
   if (!admin) {
     return res.status(200).json({
       admin: null,
+      isAdminExists: false,
     });
   }
   res.status(200).json({
     admin,
+    isAdminExists: true,
   });
 });

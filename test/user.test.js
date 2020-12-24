@@ -8,7 +8,7 @@ const userRegisterData = {
   userName: 'Aashish Pokhrel',
   password: 'testtesttest',
   confirmPassword: 'testtesttest',
-  role: 'employer',
+  role: 'admin',
   image: '../public/img/1500x500.jpeg-1608790415025.jpeg',
 };
 
@@ -43,6 +43,18 @@ describe('Login', () => {
       .then((res) => {
         const body = res.body;
         expect(body.isLoggedIn).equal(true);
+      });
+  });
+});
+
+describe('Get Admin', () => {
+  it('Should get admin Successfully', () => {
+    return request(app)
+      .get('/api/users/admin')
+      .expect(200)
+      .then((res) => {
+        const body = res.body;
+        expect(body.isAdminExists).equal(true);
       });
   });
 });
