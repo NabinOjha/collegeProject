@@ -58,3 +58,15 @@ describe('Get Admin', () => {
       });
   });
 });
+
+describe('Logout', () => {
+  it('Should Logout Successfully', () => {
+    return request(app)
+      .get('/api/users/logout')
+      .expect(200)
+      .then((res) => {
+        const body = res.body;
+        expect(body.islogOut).equal(true);
+      });
+  });
+});
