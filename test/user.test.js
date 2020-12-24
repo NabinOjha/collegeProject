@@ -42,7 +42,19 @@ describe('Login', () => {
       .expect(200)
       .then((res) => {
         const body = res.body;
+        exports.token = `Bearer ${body.token}`;
         expect(body.isLoggedIn).equal(true);
+      });
+  });
+
+  it('Should get the current user Successfully', () => {
+    return request(app)
+      .get('/api/users/loggedIn')
+      .set({authorization: `${this.token}`})
+      .expect(200)
+      .then((res) => {
+        const body = res.body;
+        expect(body.loggedIn).equal(true);
       });
   });
 });
