@@ -8,7 +8,7 @@ const userRegisterData = {
   userName: 'Aashish Pokhrel',
   password: 'testtesttest',
   confirmPassword: 'testtesttest',
-  role: 'employer',
+  role: 'admin',
   image: '../public/img/1500x500.jpeg-1608790415025.jpeg',
 };
 
@@ -42,7 +42,43 @@ describe('Login', () => {
       .expect(200)
       .then((res) => {
         const body = res.body;
+        exports.token = `Bearer ${body.token}`;
         expect(body.isLoggedIn).equal(true);
+      });
+  });
+
+  it('Should get the current user Successfully', () => {
+    return request(app)
+      .get('/api/users/loggedIn')
+      .set({authorization: `${this.token}`})
+      .expect(200)
+      .then((res) => {
+        const body = res.body;
+        expect(body.loggedIn).equal(true);
+      });
+  });
+});
+
+describe('Get Admin', () => {
+  it('Should get admin Successfully', () => {
+    return request(app)
+      .get('/api/users/admin')
+      .expect(200)
+      .then((res) => {
+        const body = res.body;
+        expect(body.isAdminExists).equal(true);
+      });
+  });
+});
+
+describe('Logout', () => {
+  it('Should Logout Successfully', () => {
+    return request(app)
+      .get('/api/users/logout')
+      .expect(200)
+      .then((res) => {
+        const body = res.body;
+        expect(body.islogOut).equal(true);
       });
   });
 });

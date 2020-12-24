@@ -126,9 +126,9 @@ exports.logOut = (req, res, next) => {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });
-
   res.status(200).json({
     message: 'Logged out successfully',
+    islogOut: true,
   });
 };
 exports.restrictTo = (...roles) => {
@@ -212,9 +212,11 @@ exports.getAdmin = catchAsync(async (req, res, next) => {
   if (!admin) {
     return res.status(200).json({
       admin: null,
+      isAdminExists: false,
     });
   }
   res.status(200).json({
     admin,
+    isAdminExists: true,
   });
 });
