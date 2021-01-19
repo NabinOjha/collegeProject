@@ -16,20 +16,20 @@ class NavElement extends React.Component {
     super(props);
     this.state = {
       anchorEl: null,
-      open: false
+      open: false,
     };
   }
 
-  handleClick = event => {
+  handleClick = (event) => {
     this.setState({
       anchorEl: event.currentTarget,
-      open: !this.state.open
+      open: !this.state.open,
     });
   };
   handleClose = () => {
     this.setState({
       anchorEl: null,
-      open: false
+      open: false,
     });
   };
 
@@ -46,18 +46,18 @@ class NavElement extends React.Component {
             root: 'root__el',
             paper: `popover ${
               id === 'login__handle' ? 'login-popover' : 'register-popover'
-            }`
+            }`,
           }}
           anchorEl={this.state.anchorEl}
           open={this.state.open}
           onClose={this.handleClose}
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'center'
+            horizontal: 'center',
           }}
           transformOrigin={{
             vertical: 'top',
-            horizontal: 'right'
+            horizontal: 'right',
           }}
         >
           <Form formName={id} handleClose={this.handleClose} />
@@ -107,8 +107,9 @@ class NavElement extends React.Component {
               marginTop: '-1.2rem',
               cursor: 'pointer',
               paddingLeft: '1rem',
-              justifyContent: 'flex-end'
+              justifyContent: 'flex-end',
             }}
+            // eslint-disable-next-line react/jsx-no-duplicate-props
             onClick={() => {
               this.props.getJobs();
               this.props.getUsers();
@@ -120,7 +121,7 @@ class NavElement extends React.Component {
               style={{
                 textTransform: 'uppercase',
                 fontSize: '1rem',
-                fontWeight: '400'
+                fontWeight: '400',
               }}
             >
               {this.props.user.currentUser.userName ||
@@ -138,7 +139,7 @@ class NavElement extends React.Component {
                   width: '35px',
                   borderRadius: '50%',
                   objectFit: 'cover',
-                  padding: '.1rem'
+                  padding: '.1rem',
                 }}
               />
             ) : (
@@ -149,7 +150,7 @@ class NavElement extends React.Component {
                   width: '25px',
                   borderRadius: '50%',
                   background: '#0088FE',
-                  padding: '.1rem'
+                  padding: '.1rem',
                 }}
               />
             )}
@@ -184,9 +185,9 @@ class NavElement extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   };
 };
 

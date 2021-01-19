@@ -12,7 +12,7 @@ import Corousel from './Corousel/Corousel';
 import {
   getTrendingJobs,
   getJobCategories,
-  getEmployers
+  getEmployers,
 } from './../../actions/actions';
 import Loader from './../Spinner/Spinner';
 
@@ -23,7 +23,7 @@ const HomePage = ({
   categories,
   getEmployers,
   employers,
-  loader
+  loader,
 }) => {
   const [query, setQuery] = useState('');
 
@@ -36,12 +36,12 @@ const HomePage = ({
     fetchData();
   }, []);
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     e.preventDefault();
     history.push('/jobs', query);
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setQuery(e.target.value);
   };
 
@@ -95,27 +95,27 @@ const HomePage = ({
             textAlign: 'center',
             backgroundColor: '#21212F',
             padding: '4rem 1rem',
-            color: '#fff'
+            color: '#fff',
           }}
         >
-          @Copyright
+          Job Recommendation System @ Copyright
         </footer>
       </React.Fragment>
     );
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     trendingJobs: state.job.trendingJobs,
     categories: state.job.category,
     employers: state.user.employers,
-    loader: state.loader.loading
+    loader: state.loader.loading,
   };
 };
 
 export default connect(mapStateToProps, {
   getTrendingJobs,
   getJobCategories,
-  getEmployers
+  getEmployers,
 })(HomePage);
