@@ -12,18 +12,24 @@ import JobList from './components/JobList/JobList';
 import Error from './components/Error/Error';
 import Spinner from './components/Spinner/Spinner';
 import Form from './components/form/form';
-import { getCurrentUserAndStatus } from './actions/actions';
+import { getCurrentUserAndStatus, getJobs } from './actions/actions';
 import PrivateRoute from './components/routes/PrivateRoutes';
 import JobDetails from './components/JobDetails/JobDetails';
 import userDetails from './components/UserDetails/UserDetails';
 import Category from './components/Homepage/Category/Category';
 import CategoryListPage from './components/CategoryListPage/CategoryListPage';
 
-function App({ getCurrentUserAndStatus, loading }) {
-  useEffect(() => {
-    getCurrentUserAndStatus();
-  }, []);
 
+
+class App extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  componentDidMount () {
+    this.props.getCurrentUserAndStatus();
+    this.props.getJobs();
+  }
+ render() {
   return (
     <div className="App">
       <Router history={history}>
@@ -64,8 +70,11 @@ function App({ getCurrentUserAndStatus, loading }) {
       </Router>
     </div>
   );
+ }
+
 }
 
 export default connect(null, {
-  getCurrentUserAndStatus
+  getCurrentUserAndStatus,
+  getJobs
 })(App);

@@ -1,8 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
-// const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
+const volleyball = require('volleyball');
 const cookieParser = require('cookie-parser');
 
 const userRoutes = require('./routes/userRoutes');
@@ -26,11 +26,12 @@ const PORT = process.env.PORT || 9000;
 
 // app.use(express.static('public/img'));
 app.use(express.static('public'));
+app.use(volleyball);
 
 //accept the cross origin request
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.ORIGIN,
     credentials: true,
   })
 );

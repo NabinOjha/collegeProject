@@ -13,6 +13,7 @@ import {
   getTrendingJobs,
   getJobCategories,
   getEmployers,
+  getJobs,
 } from './../../actions/actions';
 import Loader from './../Spinner/Spinner';
 
@@ -22,12 +23,14 @@ const HomePage = ({
   getJobCategories,
   categories,
   getEmployers,
+  getJobs,
   employers,
   loader,
 }) => {
   const [query, setQuery] = useState('');
 
   const fetchData = () => {
+    getJobs();
     getTrendingJobs();
     getJobCategories();
     getEmployers();
@@ -111,6 +114,7 @@ const mapStateToProps = (state) => {
     categories: state.job.category,
     employers: state.user.employers,
     loader: state.loader.loading,
+    jobs: state.job.jobs,
   };
 };
 
@@ -118,4 +122,5 @@ export default connect(mapStateToProps, {
   getTrendingJobs,
   getJobCategories,
   getEmployers,
+  getJobs,
 })(HomePage);

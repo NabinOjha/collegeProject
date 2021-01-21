@@ -8,17 +8,26 @@ const factoryFunction = (fn) => {
     dispatch({ type: 'LOADING_START' });
     fn(dispatch)
       .catch((err) => {
-        const { message, statusCode } = err.response.data;
-        dispatch({
+        if (err && err.response && err.response.data) {
+          const { message, statusCode } = err.response.data;
+          dispatch({
+            type: 'CREATE_ERROR',
+            payload: {
+              message: message || 'fail',
+              statusCode: statusCode || 500,
+            },
+          });
+  
+          history.push('/error');
+          return dispatch({ type: 'LOADING_STOP' });
+        }
+       return  dispatch({
           type: 'CREATE_ERROR',
           payload: {
-            message: message || 'fail',
-            statusCode: statusCode || 500,
+            message: 'fail',
+            statusCode:  500,
           },
         });
-
-        history.push('/error');
-        dispatch({ type: 'LOADING_STOP' });
       })
       .then(() => {
         dispatch({ type: 'LOADING_STOP' });
@@ -140,6 +149,7 @@ export const createJob = (job) => {
 export const getJobs = () => {
   return factoryFunction(async (dispatch) => {
     const response = await axios.get('/api/jobs');
+    console.log(response);
     dispatch({ type: 'GET_JOBS', payload: response.data });
   });
 };
@@ -164,9 +174,27 @@ export const searchJobs = (query) => {
 
 export const createApplication = (jobId) => {
   return factoryFunction(async (dispatch) => {
-    await axios.post(`/api/jobs/${jobId}/applications`);
-  });
+    try {
+      const apply = await axios.post(`/api/jobs/apply/${jobId}`)
+    dispatch({type: 'APPLY_JOB', payload: apply.data});
+    dispatch(getJobs())
+    } catch (error) {
+      dispatch({type: 'APPLY_JOB_FAILED', payload: error.response})
+    }
+  })
 };
+
+export const removeApplication = (id) => {
+  return factoryFunction(async (dispatch) => {
+    try {
+      const apply = await axios.post(`/api/jobs/cancel/${id}`)
+    dispatch({type: 'CANCEL_JOB', payload: apply.data})
+    dispatch(getJobs())
+    } catch (error) {
+      dispatch({type: 'CANCEL_JOB_FAILED', payload: error.response})
+    }
+  })
+}
 
 export const editJob = (data, id) => {
   return factoryFunction(async (dispatch) => {
@@ -193,6 +221,7 @@ export const deleteJob = (id) => {
 export const getTrendingJobs = () => {
   return factoryFunction(async (dispatch) => {
     const response = await axios.get('/api/jobs/trending');
+    console.log(response)
     dispatch({ type: 'GET_TRENDING_JOBS', payload: response.data });
   });
 };

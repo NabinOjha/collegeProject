@@ -44,6 +44,26 @@ const jobsReducer = (state = INITIAL_STATE, action) => {
           job => job._id !== action.payload
         )
       };
+      case 'APPLY_JOB': 
+      return {
+        ...state,
+        message: action.payload.message,
+      }
+      case 'APPLY_JOB_FAILED': 
+      return {
+        ...state,
+        message: action.payload.data.message,
+      }
+      case 'CANCEL_JOB': 
+      return {
+        ...state,
+        message: action.payload.message,
+      }
+      case 'CANCEL_JOB_FAILED': 
+      return {
+        ...state,
+        message: action.payload.data.message,
+      }
 
     default:
       return state;

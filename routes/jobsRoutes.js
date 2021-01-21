@@ -10,6 +10,22 @@ router.get('/categories', jobsController.getCategories);
 router.get('/trending', jobsController.trendingJobs);
 router.get('/search', jobsController.searchJobs);
 
+router
+  .route('/apply/:id')
+  .post(
+    authController.protect,
+    authController.restrictTo('employee'),
+    jobsController.applyJob
+  );
+
+router
+  .route('/cancel/:id')
+  .post(
+    authController.protect,
+    authController.restrictTo('employee'),
+    jobsController.cancleApplyJob
+  );
+
 router.use('/:jobId/applications', jobsApplicationRouter);
 
 router

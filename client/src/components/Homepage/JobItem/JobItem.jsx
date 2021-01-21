@@ -6,7 +6,12 @@ import { Pagination } from '@material-ui/lab';
 import './JobItem.scss';
 import jobContext from './../../../context/jobContext';
 import history from '../../../history';
-import { deleteJob, createApplication } from './../../../actions/actions';
+import {
+  getUser,
+  deleteJob,
+  createApplication,
+  removeApplication,
+} from './../../../actions/actions';
 
 class JobItem extends React.Component {
   constructor(props) {
@@ -14,24 +19,28 @@ class JobItem extends React.Component {
   }
   pathName = history.location.pathname;
 
-  handleEditJob = id => {
+  handleEditJob = (id) => {
     history.push(`/jobs/edit/${id}`);
   };
 
-  handleDeleteJob = id => {
+  handleDeleteJob = (id) => {
     this.props.deleteJob(id);
   };
-  handleJobApplication = id => {
-    this.props.createApplication(id);
+  handleJobApplication = (id, isApplied) => {
+    if (!isApplied) {
+      return this.props.createApplication(id);
+    }
+    return this.props.removeApplication(id);
   };
 
-  renderButtonsBasedOnRole = (role, jobId) => {
-    if (role === 'admin' || this.props.owner) {
+  renderButtonsBasedOnRole = (role, jobId, appliedBy) => {
+    console.log(role);
+    if ((role === 'admin' || this.props.owner) && appliedBy.length > 0) {
       return (
         <React.Fragment>
           <button
             className=" dashboard__admin-btn dashboard__admin-btn--edit"
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               this.handleEditJob(jobId);
             }}
@@ -40,7 +49,7 @@ class JobItem extends React.Component {
           </button>
           <button
             className="dashboard__admin-btn dashboard__admin-btn--delete"
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               this.handleDeleteJob(jobId);
             }}
@@ -52,8 +61,8 @@ class JobItem extends React.Component {
     } else if (role === 'employer' && !this.owner) {
       return (
         <button
-          className="job-item__btn"
-          onClick={e => {
+          className="job-item__btn primary"
+          onClick={(e) => {
             e.stopPropagation();
             history.push(`/jobs/${jobId}`);
           }}
@@ -63,25 +72,41 @@ class JobItem extends React.Component {
       );
     } else {
       return (
-        <button
-          className="job-item__btn"
-          onClick={e => {
-            e.stopPropagation();
-            this.handleJobApplication(jobId);
-          }}
-        >
-          Apply Now
-        </button>
+        <>
+          {role !== 'employer' && role !== 'admin' ? (
+            <button
+              className={
+                appliedBy ? 'job-item__btn cancel' : 'job-item__btn primary'
+              }
+              onClick={(e) => {
+                e.stopPropagation();
+
+                this.handleJobApplication(jobId, appliedBy);
+              }}
+            >
+              {appliedBy ? 'Cancel' : 'Apply'}
+            </button>
+          ) : (
+            ''
+          )}
+        </>
       );
     }
   };
 
+  checkId = (id, appliedBy) => {
+    if (appliedBy !== undefined && appliedBy.includes(id)) {
+      return true;
+    }
+    return false;
+  };
+
   render() {
-    if (this.props.item) {
+    if ((this.props.item, this.props.user)) {
       return (
         <React.Fragment>
           <jobContext.Consumer>
-            {value => {
+            {(value) => {
               return (
                 <div
                   className={`${
@@ -134,10 +159,16 @@ class JobItem extends React.Component {
                     </span>
                   </div>
 
-                  {this.renderButtonsBasedOnRole(
-                    value && value.split(' ')[1],
-                    this.props.item._id
-                  )}
+                  {this.props.user.currentUser &&
+                    this.renderButtonsBasedOnRole(
+                      // value && value.split(' ')[1],
+                      this.props.user.currentUser.role,
+                      this.props.item._id,
+                      this.checkId(
+                        this.props.user.currentUser._id,
+                        this.props.item.appliedBy
+                      )
+                    )}
                 </div>
               );
             }}
@@ -157,5 +188,15 @@ class JobItem extends React.Component {
     }
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
 
-export default connect(null, { deleteJob, createApplication })(JobItem);
+export default connect(mapStateToProps, {
+  getUser,
+  deleteJob,
+  createApplication,
+  removeApplication,
+})(JobItem);

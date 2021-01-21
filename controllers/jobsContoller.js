@@ -385,3 +385,85 @@ exports.searchJobs = catchAsync(async (req, res, next) => {
     return next(new AppError('No jobs available matching your query', 404));
   sendResponse(res, releventResult);
 });
+
+exports.applyJob = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const findJob = await Jobs.findOne({ _id: id });
+  console.log('Findjob', findJob);
+  if (!findJob) {
+    return res.status(404).json({
+      message: 'Job not found',
+    });
+  }
+  const appliedList = findJob.appliedBy;
+  const currentUserId = req.user.id;
+  const checkApplideUserId = appliedList.includes(currentUserId);
+  if (!checkApplideUserId) {
+    const addApplyJob = await Jobs.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $push: {
+          appliedBy: currentUserId,
+        },
+      }
+    );
+    if (addApplyJob) {
+      res.status(200).json({
+        message: 'Job applied successfully',
+      });
+    }
+  }
+  if (checkApplideUserId) {
+    res.status(404).json({
+      message: 'Already applied.',
+    });
+  }
+});
+
+exports.cancleApplyJob = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const findJob = await Jobs.findOne({ _id: id });
+
+  if (!findJob) {
+    return res.status(404).json({
+      message: 'Job not found',
+    });
+  }
+  const appliedList = findJob.appliedBy;
+  const currentUserId = req.user.id;
+  const checkApplideUserId = appliedList.includes(currentUserId);
+  if (checkApplideUserId) {
+      const newAppliedUser = appliedList.filter((item) => {
+        return item != currentUserId
+      })
+      console.log(newAppliedUser.includes(currentUserId))
+    const removeAppliedJob = await Jobs.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: {
+          appliedBy: newAppliedUser,
+        },
+      }
+    );
+    console.log(removeAppliedJob)
+    if (removeAppliedJob.nModified === 1) {
+      res.status(200).json({
+        message: 'Cancled apply job successfully',
+      });
+    }
+    if (removeAppliedJob.nModified === 0) {
+      res.status(500).json({
+        message: 'Something went wrong.',
+      });
+    }
+  }
+  if (!checkApplideUserId) {
+    res.status(404).json({
+      message: 'Not applied yet.',
+    });
+  }
+});

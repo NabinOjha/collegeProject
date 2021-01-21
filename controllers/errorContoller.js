@@ -1,6 +1,7 @@
 const AppError = require('./../utils/AppError');
 
 const handleValidationError = (error) => {
+  console.log(error);
   const errors = Object.values(error.errors).map((err) => {
     return err.message;
   });
@@ -37,6 +38,7 @@ const sendResponse = (err, res) => {
 };
 
 module.exports = function (error, req, res, next) {
+  console.log('Here',error)
   let err = { ...error };
   err.message = error.message;
   err.statusCode = error.statusCode;

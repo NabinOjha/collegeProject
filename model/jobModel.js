@@ -44,12 +44,9 @@ const jobsSchema = new Schema({
     ref: 'User',
     required: true,
   },
-  appliedBy: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
+  appliedBy: {
+    type: Array,
+  }
 });
 
 jobsSchema.index({

@@ -1,16 +1,24 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import './JobDetails.scss';
 import Spinner from './../Spinner/Spinner';
 
 import { getJob, createApplication } from './../../actions/actions';
 
-const JobDetails = ({ match, getJob, job, loading, createApplication }) => {
+const JobDetails = ({
+  match,
+  getJob,
+  getUser,
+  job,
+  loading,
+  createApplication,
+}) => {
   useEffect(() => {
     getJob(match.params.id);
   }, []);
-
+  const user = useSelector((state) => state.user);
+  console.log(user);
   const handleClick = () => {
     createApplication(job._id);
   };
@@ -57,9 +65,13 @@ const JobDetails = ({ match, getJob, job, loading, createApplication }) => {
                 </span>
               </li>
             </div>
-            <button className="job-details__button" onClick={handleClick}>
-              Apply Now
-            </button>
+            {user.loggedin &&
+              user.currentUser.role !== 'employer' &&
+              user.currentUser.role !== 'admin' && (
+                <button className="job-details__button" onClick={handleClick}>
+                  Apply Now
+                </button>
+              )}
           </div>
         </div>
       )
@@ -67,10 +79,10 @@ const JobDetails = ({ match, getJob, job, loading, createApplication }) => {
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     job: state.job.currentJob,
-    loading: state.loader.loading
+    loading: state.loader.loading,
   };
 };
 

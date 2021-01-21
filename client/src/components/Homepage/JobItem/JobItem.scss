@@ -36,7 +36,6 @@
   }
   &__btn {
     grid-column: 31/-1;
-    background-color: #0172c2;
     border: none;
     outline: none;
     border-radius: 200px;
@@ -46,10 +45,6 @@
     transition: all 0.3s ease-in;
     padding: 1rem 0;
     text-align: center;
-    &:hover {
-      cursor: pointer;
-      background-color: darken($color: #0172c2, $amount: 10);
-    }
   }
   &__deadline {
     grid-column: 23/31;
@@ -60,6 +55,20 @@
   h4 {
     margin-left: 1rem;
     font-size: 1.3rem;
+  }
+}
+.cancel {
+  background-color: #e43631;
+  &:hover {
+    cursor: pointer;
+    background-color: darken($color: #e43631, $amount: 10);
+  }
+}
+.primary {
+  background-color: #0172c2;
+  &:hover {
+    cursor: pointer;
+    background-color: darken($color: #0172c2, $amount: 10);
   }
 }
 
