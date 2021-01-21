@@ -85,12 +85,20 @@ class NavElement extends React.Component {
               Home
             </Link>
           </li>
-          <li>
-            <Link to="/candidates">Candidates</Link>
-          </li>
-          <li>
-            <Link to="/employers">Employers</Link>
-          </li>
+          {this.props.user &&
+          this.props.user.currentUser &&
+          this.props.user.currentUser.role === 'admin' ? (
+            <>
+              <li>
+                <Link to="/candidates">Candidates</Link>
+              </li>
+              <li>
+                <Link to="/employers">Employers</Link>
+              </li>{' '}
+            </>
+          ) : (
+            ''
+          )}
           <li>
             <Link to="/jobs">Jobs</Link>
           </li>
