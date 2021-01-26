@@ -49,7 +49,10 @@ exports.getAllJobs = catchAsync(async (req, res, next) => {
       const jobs = [];
       for (let [key, value] of Object.entries(sortedJobsByScore)) {
         const job = await Jobs.findById(key);
-        jobs.push(job);
+        if(value > 0.065){
+          jobs.push(job);
+        }
+       
       }
 
       if (!jobs) {
@@ -164,8 +167,8 @@ exports.getRatingsDataOfJobsForEachUser = catchAsync(async (req, res, next) => {
 
   //loop through every rating and assign reviews based on email
   for (let rating of ratings) {
-    const user = await User.findById(rating.userId);
-    userRatingObj[user.email] = rating;
+    const user = await User.findById({_id: rating.userId});
+    // userRatingObj[user.email] = rating;
   }
 
   //loop through every rating in userRatingObj

@@ -181,6 +181,7 @@ const cosineSimilarityFn = (user, userResume, job) => {
   for (let i = 0; i < sortableArray.length; i++) {
     soretdObj[sortableArray[i][0]] = sortableArray[i][1];
   }
+  console.log('............ Job Score ..........',soretdObj);
   return soretdObj;
 };
 

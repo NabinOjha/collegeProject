@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './Sidebar.scss';
 import { REACT_APP_STATIC_IMAGE_PATH } from './../../static';
 
-const Sidebar = props => {
+const Sidebar = (props) => {
   const sideBarItems = () => {
     if (props.user.loggedIn) {
       const { role } = props.user.currentUser;
@@ -19,7 +20,7 @@ const Sidebar = props => {
           'POST A JOB',
           'MY Jobs',
           'CREATE JOB CATEGORY',
-          'LOG OUT'
+          'LOG OUT',
         ];
       } else if (role === 'employee') {
         return ['JOBS', 'EDIT PROFILE', 'EDIT PASSWORD', 'LOG OUT'];
@@ -31,7 +32,7 @@ const Sidebar = props => {
           'EDIT PASSWORD',
           'My Jobs',
           'EMPLOYEE',
-          'LOG OUT'
+          'LOG OUT',
         ];
       }
     } else return [];
@@ -49,14 +50,14 @@ const Sidebar = props => {
   return (
     <div className="sidebar">
       <figure>
-        {props.user &&
-          props.user.currentUser &&
-          props.user.currentUser.image && (
+        {props.user && props.user.currentUser && props.user.currentUser.image && (
+          <>
             <img
               src={`${REACT_APP_STATIC_IMAGE_PATH}/${props.user.currentUser.image}`}
               alt="user"
             />
-          )}
+          </>
+        )}
         <figcaption>
           {props.user &&
             props.user.currentUser &&
@@ -75,15 +76,29 @@ const Sidebar = props => {
             sideBarItems().map((item, index) => {
               return renderSidebarItem(item, index);
             })}
+          {props.user && props.user.currentUser && (
+            <li
+              className="sidebar-nav-list__item active"
+              onClick={() =>
+                window.open(
+                  `http://localhost:5000/resume/${props.user.currentUser.resume}`,
+                  '_blank',
+                  'noopener,noreferrer'
+                )
+              }
+            >
+              Resume
+            </li>
+          )}
         </ul>
       </nav>
     </div>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   };
 };
 

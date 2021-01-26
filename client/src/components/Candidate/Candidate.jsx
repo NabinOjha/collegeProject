@@ -10,6 +10,8 @@ const CandidatePage = ({ users, getUsers, loading }) => {
   useEffect(() => {
     getUsers();
   }, []);
+
+  console.log({ users });
   if (loading) {
     return <Spinner />;
   } else {
@@ -26,10 +28,10 @@ const CandidatePage = ({ users, getUsers, loading }) => {
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     users: state.user.users,
-    loading: state.loader.loading
+    loading: state.loader.loading,
   };
 };
 export default connect(mapStateToProps, { getUsers })(CandidatePage);

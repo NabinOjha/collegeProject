@@ -35,7 +35,7 @@ class JobItem extends React.Component {
 
   renderButtonsBasedOnRole = (role, jobId, appliedBy) => {
     console.log(role);
-    if ((role === 'admin' || this.props.owner) && appliedBy.length > 0) {
+    if (role === 'admin' || this.props.owner) {
       return (
         <React.Fragment>
           <button
@@ -70,26 +70,19 @@ class JobItem extends React.Component {
           View Details
         </button>
       );
-    } else {
+    } else if (role === 'employee') {
       return (
-        <>
-          {role !== 'employer' && role !== 'admin' ? (
-            <button
-              className={
-                appliedBy ? 'job-item__btn cancel' : 'job-item__btn primary'
-              }
-              onClick={(e) => {
-                e.stopPropagation();
-
-                this.handleJobApplication(jobId, appliedBy);
-              }}
-            >
-              {appliedBy ? 'Cancel' : 'Apply'}
-            </button>
-          ) : (
-            ''
-          )}
-        </>
+        <button
+          className={
+            appliedBy ? 'job-item__btn cancel' : 'job-item__btn primary'
+          }
+          onClick={(e) => {
+            e.stopPropagation();
+            this.handleJobApplication(jobId, appliedBy);
+          }}
+        >
+          {appliedBy ? 'Cancel' : 'Apply'}
+        </button>
       );
     }
   };

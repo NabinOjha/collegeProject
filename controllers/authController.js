@@ -201,8 +201,9 @@ exports.jobsActionAllowedUser = catchAsync(async (req, res, next) => {
     path: 'createdBy',
     select: 'userName',
   });
-
-  if (!(currentUser.id === job.createdBy.id))
+  if (currentUser.role === 'admin') {
+    next();
+  } else if (!(currentUser.id === job.createdBy.id))
     return next(new AppError('You cannot update  this job', 401));
   next();
 });
